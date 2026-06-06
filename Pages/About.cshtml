@@ -1,0 +1,144 @@
+@page
+@{
+    ViewData["Title"] = "About Us";
+}
+
+<style>
+    body {
+        background-image: url('/images/background2.jpg'); 
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white;
+    }
+
+    .about-glass-box {
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 60px 40px; 
+        border-radius: 20px;
+        margin-top: 160px;
+        margin-bottom: 60px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+        position: relative;
+        text-align: left;
+    }
+
+    .title-accent-line {
+        width: 80px;
+        height: 4px;
+        background-color: #0d6efd;
+        margin-top: 10px;
+        margin-bottom: 40px;
+        margin-left: 50px;
+    }
+
+    .slide-text {
+        font-size: 1.15rem;
+        line-height: 1.9;
+        color: #e0e0e0;
+        text-align: justify;
+        min-height: 180px;
+        padding: 0 50px;
+    }
+
+    .custom-arrow-btn {
+        width: 45px;
+        height: 45px;
+        background-color: #0d6efd;
+        color: white;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-size: 1.2rem;
+        border: none;
+        transition: all 0.3s;
+        position: absolute;
+        top: 55%;
+        transform: translateY(-50%);
+        z-index: 10;
+    }
+    .custom-arrow-btn:hover {
+        background-color: #0b5ed7;
+        transform: translateY(-50%) scale(1.1);
+        color: white;
+    }
+    .btn-prev {
+        left: 20px;
+    }
+    .btn-next {
+        right: 20px;
+    }
+
+    .bottom-nav-pill {
+        background-color: transparent;
+        color: white;
+        border: 1px solid white;
+        border-radius: 30px;
+        padding: 10px 30px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s;
+    }
+    .bottom-nav-pill.active, .bottom-nav-pill:hover {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+</style>
+
+<div class="container">
+    <div style="height: 150px;"></div>
+    <div class="about-glass-box" style="margin-top: 0;">
+        
+        <h1 style="font-weight: bold; font-size: 3rem; margin: 0; padding-left: 50px;">About Us</h1>
+        <div class="title-accent-line"></div>
+
+        <button class="custom-arrow-btn btn-prev" type="button" data-bs-target="#aboutTextCarousel" data-bs-slide="prev">
+            ❮
+        </button>
+        <button class="custom-arrow-btn btn-next" type="button" data-bs-target="#aboutTextCarousel" data-bs-slide="next">
+            ❯
+        </button>
+
+        <div id="aboutTextCarousel" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+                
+                <div class="carousel-item active">
+                    <p class="slide-text">
+                        Our mission at JomKL! is to revolutionize the way you experience Kuala Lumpur. We aim to provide an immersive and interactive learning platform that goes beyond traditional tourism. By blending rich cultural storytelling with gamified exploration, we empower locals and travelers alike to uncover the hidden gems, historical landmarks, and diverse heritage of KL. Our goal is to make every journey through the city an engaging, educational, and unforgettable adventure.
+                    </p>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="slide-text">
+                        <ul style="list-style-type: none; padding-left: 0;">
+                            <li style="margin-bottom: 15px;"><strong>Step 1:</strong> Register an account to unlock your personal explorer profile and track your progress.</li>
+                            <li style="margin-bottom: 15px;"><strong>Step 2:</strong> Navigate through our interactive KL Map to discover historical sites and cultural hotspots.</li>
+                            <li><strong>Step 3:</strong> Take on landmark quizzes, test your knowledge, and earn exclusive digital badges to prove your expertise!</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 15px; margin-top: 40px; padding-left: 50px;">
+            <button type="button" data-bs-target="#aboutTextCarousel" data-bs-slide-to="0" class="bottom-nav-pill active" aria-current="true">Our Mission</button>
+            <button type="button" data-bs-target="#aboutTextCarousel" data-bs-slide-to="1" class="bottom-nav-pill">How to Play</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const pills = document.querySelectorAll('.bottom-nav-pill');
+        const carousel = document.getElementById('aboutTextCarousel');
+
+        carousel.addEventListener('slid.bs.carousel', function (event) {
+            pills.forEach(pill => pill.classList.remove('active'));
+            pills[event.to].classList.add('active');
+        });
+    });
+</script>

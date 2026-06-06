@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Interactive Cultural & Landmark Discovery</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        .active-page {
+            background-color: #0d6efd;
+            color: white !important;
+            border-radius: 20px;
+            font-weight: bold;
+            padding-left: 18px !important;
+            padding-right: 18px !important;
+            box-shadow: 0 4px 10px rgba(13, 110, 253, 0.4);
+            transition: all 0.3s ease;
+        }
+    
+        .nav-link:hover:not(.active-page) {
+            text-shadow: 0 0 8px rgba(255,255,255,0.8);
+        }
+    </style>
+    <link rel="stylesheet" href="~/eExploreKL.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <div style="padding-top: 25px; display: flex; justify-content: center; position: absolute; width: 100%; z-index: 1030;">
+        
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm" style="background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); border-radius: 50px; width: 85%; padding: 10px 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                <div class="container-fluid p-0">
+                    <a class="navbar-brand" style="color: white; font-weight: bold; font-size: 1.5rem;" asp-area="" asp-page="/Index">JomKL!</a>
+                
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                        <ul class="navbar-nav">
+                            <li class="nav-item mx-2">
+                                <a class="nav-link text-white @(ViewContext.RouteData.Values["page"]?.ToString() == "/Index" ? "active-page" : "")" asp-page="/Index">Home</a>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a class="nav-link text-white @(ViewContext.RouteData.Values["page"]?.ToString() == "/About" ? "active-page" : "")" asp-page="/About">About Us</a>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a class="nav-link text-white @(ViewContext.RouteData.Values["page"]?.ToString() == "/Map" ? "active-page" : "")" asp-page="/Map">KL Map</a>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a class="nav-link text-white @(ViewContext.RouteData.Values["page"]?.ToString() == "/Login" ? "active-page" : "")" asp-page="/Login">Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer text-white" style="background-color: rgba(0, 0, 0, 0.4); border: none;">
+        <div class="container">
+            &copy; 2026 - JomKL! - <a asp-area="" asp-page="/Privacy" class="text-white">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

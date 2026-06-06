@@ -1,0 +1,178 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    body {
+        background-image: url('/images/kl-hero.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    .scroll-section {
+        min-height: 100vh; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 20px;
+    }
+
+    .content-box {
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 60px 80px;
+        border-radius: 20px;
+        text-align: center;
+        width: 90%;
+        max-width: 1200px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    }
+
+    .back-to-top {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(5px);
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 46px;
+        font-size: 26px;
+        font-weight: 900;
+        text-decoration: none;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        z-index: 1000;
+        transition: all 0.3s ease;
+    }
+    
+    .back-to-top:hover {
+        transform: scale(1.1);
+        background-color: rgba(0, 0, 0, 0.9);
+        color: white;
+    }
+
+    .btn-jomkl-premium {
+        background-color: rgba(0, 0, 0, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        border-radius: 50px;
+        padding: 12px 30px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    .btn-jomkl-premium:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+        color: black;
+        border: 1px solid black;
+        transform: scale(1.05);
+    }
+</style>
+
+<div id="page-top"></div>
+
+<section id="section1" class="scroll-section">
+    <div class="hero-banner" style="background-color: rgba(0,0,0,0.6); padding: 100px 40px; border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); text-align: center;">
+        <h1 style="color: #ffffff; font-weight: 800; font-size: 3.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.6);">
+            Welcome to JomKL!
+        </h1>
+        <p style="font-size: 1.2rem; color: #f8f9fa; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); margin-bottom: 30px;">
+            Discover the culture and landmarks of Kuala Lumpur through interactive learning.
+        </p>
+        <a href="#section2" class="btn-jomkl-premium btn-lg">Start Discovering</a>
+    </div>
+</section>
+
+<section id="section2" class="scroll-section">
+    <div class="content-box">
+        <h2 style="color: white; font-weight: bold; margin-bottom: 20px;">About Kuala Lumpur</h2>
+        <p style="color: #dcdde1; font-size: 1.1rem; line-height: 1.8;">
+            Kuala Lumpur, the bustling capital city of Malaysia, is a captivating blend of gleaming skyscrapers, colonial architecture, and lush natural attractions.
+            Its vibrant streets pulse with relentless energy, while iconic landmarks like the magnificent Petronas Twin Towers showcase its spectacular and modern skyline.
+            Beyond its stunning exterior, KL is a true melting pot of cultures, seamlessly interweaving Malay, Chinese, and Indian heritage. Visitors can explore vibrant
+            historical neighborhoods such as Chinatown and Little India, experience a world-renowned culinary scene, and immerse themselves in a dynamic city where rich
+            traditions meet rapid modernization.
+            <br/><br/>
+        </p>
+    </div>
+</section>
+
+<section id="section3" class="scroll-section">
+    <div class="content-box">
+        <h2 style="color: white; font-weight: bold; margin-bottom: 30px;">KL Scenery Gallery</h2>
+        
+        <div id="klCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner" style="border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                
+                <div class="carousel-item active">
+                    <img src="~/images/scenery1.jpg" class="d-block w-100" alt="Scenery 1" style="height: 550px; object-fit: cover;">
+                </div>
+                
+                <div class="carousel-item">
+                    <img src="~/images/scenery2.jpg" class="d-block w-100" alt="Scenery 2" style="height: 550px; object-fit: cover;">
+                </div>
+                
+                <div class="carousel-item">
+                    <img src="~/images/scenery3.jpg" class="d-block w-100" alt="Scenery 3" style="height: 550px; object-fit: cover;">
+                </div>
+                
+                <div class="carousel-item">
+                    <img src="~/images/scenery4.jpg" class="d-block w-100" alt="Scenery 4" style="height: 550px; object-fit: cover;">
+                </div>
+                
+                <div class="carousel-item">
+                    <img src="~/images/scenery5.jpg" class="d-block w-100" alt="Scenery 5" style="height: 550px; object-fit: cover;">
+                </div>
+                
+                <div class="carousel-item">
+                    <img src="~/images/scenery6.jpg" class="d-block w-100" alt="Scenery 6" style="height: 550px; object-fit: cover;">
+                </div>
+                
+                <div class="carousel-item">
+                    <img src="~/images/scenery7.jpg" class="d-block w-100" alt="Scenery 7" style="height: 550px; object-fit: cover;">
+                </div>
+                
+                <div class="carousel-item">
+                    <img src="~/images/scenery8.jpg" class="d-block w-100" alt="Scenery 8" style="height: 550px; object-fit: cover;">
+                </div>
+
+            </div>
+            
+            <button class="carousel-control-prev" type="button" data-bs-target="#klCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#klCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<section id="section4" class="scroll-section">
+    <div class="content-box" style="padding: 80px 50px;">
+        <h2 style="color: white; font-weight: bold; margin-bottom: 20px;">Ready for the Adventure?</h2>
+        <p style="color: #dcdde1; font-size: 1.2rem; margin-bottom: 40px;">
+            Join us to track your progress, take interactive quizzes, and earn exclusive KL explorer badges!
+        </p>
+        <a asp-page="/Login" class="btn-jomkl-premium btn-lg">Login & Play Now</a>
+    </div>
+</section>
+
+<a href="#page-top" class="back-to-top" title="Back to Top">
+    ↑
+</a>
+
