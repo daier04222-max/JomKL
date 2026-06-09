@@ -14,6 +14,7 @@
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
+        overflow-x: hidden;
     }
 
     .scroll-section {
@@ -33,6 +34,29 @@
         width: 90%;
         max-width: 1200px;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    }
+
+    .content-box-animated, .about-title, .about-text {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 1.2s ease-out;
+    }
+
+    .content-box-animated.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .about-title.show {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.3s;
+    }
+
+    .about-text.show {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.6s;
     }
 
     .back-to-top {
@@ -79,14 +103,61 @@
         border: 1px solid black;
         transform: scale(1.05);
     }
+
+    /* --- 3D Box --- */
+    #tilt-box {
+        perspective: 1000px; 
+        transform-style: preserve-3d;
+    }
+
+    #tilt-box.reset-tilt {
+        transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* --- Carousel Indicator --- */
+    .carousel-indicators {
+        bottom: -50px;
+    }
+    
+    .carousel-indicators [data-bs-target] {
+        width: 12px !important;
+        height: 12px !important;
+        border-radius: 50% !important;
+        background-color: #dcdde1 !important;
+        margin: 0 6px !important;
+        border: none !important;
+        opacity: 0.5 !important;
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    }
+    
+    .carousel-indicators .active {
+        width: 38px !important;
+        border-radius: 10px !important;
+        background-color: #FF9800 !important;
+        opacity: 1 !important;
+    }
+
+    /* --- Click Effect --- */
+    .firework-particle {
+        position: fixed;
+        top: 0; 
+        left: 0;
+        width: 8px;            
+        height: 8px;
+        background-color: #FF9800;
+        border-radius: 50%;   
+        pointer-events: none;
+        z-index: 9999;  
+    }
 </style>
 
 <div id="page-top"></div>
 
 <section id="section1" class="scroll-section">
     <div class="hero-banner" style="background-color: rgba(0,0,0,0.6); padding: 100px 40px; border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); text-align: center;">
-        <h1 style="color: #ffffff; font-weight: 800; font-size: 3.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.6);">
-            Welcome to JomKL!
+        <h1 style="color: #ffffff; font-weight: 800; font-size: 3.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); display: flex; justify-content: center; gap: 15px;">
+            <span id="text-left" style="display: inline-block;">Welcome to</span>
+            <span id="text-right" style="display: inline-block; font-family: 'Titan One', cursive; letter-spacing: 2px; font-weight: normal;">Jom<span style="color: #FF9800;">KL!</span></span>
         </h1>
         <p style="font-size: 1.2rem; color: #f8f9fa; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); margin-bottom: 30px;">
             Discover the culture and landmarks of Kuala Lumpur through interactive learning.
@@ -96,9 +167,13 @@
 </section>
 
 <section id="section2" class="scroll-section">
-    <div class="content-box">
-        <h2 style="color: white; font-weight: bold; margin-bottom: 20px;">About Kuala Lumpur</h2>
-        <p style="color: #dcdde1; font-size: 1.1rem; line-height: 1.8;">
+    <div class="content-box content-box-animated">
+        
+        <h2 class="about-title" style="color: white; font-weight: bold; margin-bottom: 20px;">
+            About Kuala Lumpur
+        </h2>
+        
+        <p class="about-text" style="color: #dcdde1; font-size: 1.1rem; line-height: 1.8;">
             Kuala Lumpur, the bustling capital city of Malaysia, is a captivating blend of gleaming skyscrapers, colonial architecture, and lush natural attractions.
             Its vibrant streets pulse with relentless energy, while iconic landmarks like the magnificent Petronas Twin Towers showcase its spectacular and modern skyline.
             Beyond its stunning exterior, KL is a true melting pot of cultures, seamlessly interweaving Malay, Chinese, and Indian heritage. Visitors can explore vibrant
@@ -110,10 +185,21 @@
 </section>
 
 <section id="section3" class="scroll-section">
-    <div class="content-box">
+    <div class="content-box" id="tilt-box">
         <h2 style="color: white; font-weight: bold; margin-bottom: 30px;">KL Scenery Gallery</h2>
         
-        <div id="klCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div id="klCarousel" class="carousel slide" data-bs-ride="carousel" style="margin-bottom: 50px;">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#klCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#klCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#klCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#klCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#klCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                <button type="button" data-bs-target="#klCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                <button type="button" data-bs-target="#klCarousel" data-bs-slide-to="6" aria-label="Slide 7"></button>
+                <button type="button" data-bs-target="#klCarousel" data-bs-slide-to="7" aria-label="Slide 8"></button>
+            </div>
+
             <div class="carousel-inner" style="border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
                 
                 <div class="carousel-item active">
@@ -171,6 +257,106 @@
         <a asp-page="/Login" class="btn-jomkl-premium btn-lg">Login & Play Now</a>
     </div>
 </section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+<script>
+        // section 1 Text separation effect
+        window.addEventListener('scroll', function() {
+            let scrollY = window.scrollY; 
+            let textLeft = document.getElementById('text-left');
+            let textRight = document.getElementById('text-right');
+
+            if (textLeft && textRight) {
+                let moveSpeed = scrollY * 1.5; 
+                let opacitySpeed = 1 - (scrollY / 260); 
+
+                textLeft.style.transform = `translateX(-${moveSpeed}px)`;
+                textLeft.style.opacity = opacitySpeed;
+
+                textRight.style.transform = `translateX(${moveSpeed}px)`;
+                textRight.style.opacity = opacitySpeed;
+            }
+        });
+
+        // section 2 Fade-in effect
+        document.addEventListener("DOMContentLoaded", function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                    } else {
+                        entry.target.classList.remove('show');
+                    }
+                });
+            }, {
+                threshold: 0.2
+            });
+
+            const animatedBox = document.querySelector('.content-box-animated');
+            const animatedTitle = document.querySelector('.about-title');
+            const animatedText = document.querySelector('.about-text');
+
+            if(animatedBox) observer.observe(animatedBox);
+            if(animatedTitle) observer.observe(animatedTitle);
+            if(animatedText) observer.observe(animatedText);
+        });
+
+        // section 3 3D effect
+        const tiltBox = document.getElementById('tilt-box');
+        
+        if (tiltBox) {
+            tiltBox.addEventListener('mousemove', (e) => {
+                tiltBox.classList.remove('reset-tilt');
+
+                const rect = tiltBox.getBoundingClientRect();
+                
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;  
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -10;
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                tiltBox.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            tiltBox.addEventListener('mouseleave', () => {
+                tiltBox.classList.add('reset-tilt');
+                tiltBox.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        }
+
+        // Mouse click effect 
+        document.addEventListener('click', function(e) {
+            const numParticles = 15; 
+            const particles = [];
+
+            for (let i = 0; i < numParticles; i++) {
+                let p = document.createElement('div');
+                p.classList.add('firework-particle');
+                p.style.left = e.clientX + 'px';
+                p.style.top = e.clientY + 'px';
+                document.body.appendChild(p);
+                particles.push(p);
+            }
+
+            anime({
+                targets: particles,
+                translateX: function() { return anime.random(-100, 100); },
+                translateY: function() { return anime.random(-100, 100); },
+                scale: [1, 0],    
+                opacity: [1, 0],  
+                easing: 'easeOutExpo', 
+                duration: anime.random(1500, 2000), 
+                complete: function(anim) {
+                    particles.forEach(p => p.remove());
+                }
+            });
+        });
+</script>
 
 <a href="#page-top" class="back-to-top" title="Back to Top">
     ↑
