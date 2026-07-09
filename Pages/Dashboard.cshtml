@@ -1,0 +1,121 @@
+@page
+@model DashboardModel
+@{
+    ViewData["Title"] = "Dashboard - My Learning Progress";
+}
+
+<div class="container mt-5 pt-3">
+    <h2>📚 My Learning Center</h2>
+    <p class="text-muted">Track your progress in exploring Kuala Lumpur's culture and landmarks</p>
+
+    <hr />
+
+    <!-- User Info Area -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body d-flex align-items-center">
+                    <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; font-size: 40px; color: white;">
+                        👤
+                    </div>
+                    <div class="ms-3">
+                        <h4 class="mb-0">@Model.UserName</h4>
+                        <small class="text-muted">Member since @Model.JoinDate</small>
+                    </div>
+                    <div class="ms-auto text-end">
+                        <span class="badge bg-primary fs-6">⭐ @Model.TotalScore pts</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3 col-6">
+            <div class="card text-center bg-light">
+                <div class="card-body">
+                    <h6 class="card-title text-muted">📍 Landmarks</h6>
+                    <p class="card-text fs-3 fw-bold text-primary">@Model.UnlockedLandmarks / @Model.TotalLandmarks</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="card text-center bg-light">
+                <div class="card-body">
+                    <h6 class="card-title text-muted">📝 Quizzes</h6>
+                    <p class="card-text fs-3 fw-bold text-success">@Model.CompletedQuizzes / @Model.TotalQuizzes</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="card text-center bg-light">
+                <div class="card-body">
+                    <h6 class="card-title text-muted">🏅 Badges</h6>
+                    <p class="card-text fs-3 fw-bold text-warning">@Model.BadgeCount</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="card text-center bg-light">
+                <div class="card-body">
+                    <h6 class="card-title text-muted">📊 Completion</h6>
+                    <p class="card-text fs-3 fw-bold text-info">@Model.CompletionRate%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Exploration Progress</h5>
+                    <div class="progress" style="height: 30px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" 
+                             role="progressbar" 
+                             style="width: @Model.CompletionRate%;" 
+                             aria-valuenow="@Model.CompletionRate" 
+                             aria-valuemin="0" 
+                             aria-valuemax="100">
+                            @Model.CompletionRate%
+                        </div>
+                    </div>
+                    <small class="text-muted mt-2 d-block">
+                        @Model.UnlockedLandmarks / @Model.TotalLandmarks landmarks unlocked
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Badge Collection -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">🏅 My Badges</h5>
+                    @if (Model.Badges.Any())
+                    {
+                        <div class="d-flex flex-wrap gap-3">
+                            @foreach (var badge in Model.Badges)
+                            {
+                                <div class="text-center" style="width: 100px;">
+                                    <div class="rounded-circle bg-warning d-flex align-items-center justify-content-center mx-auto" style="width: 64px; height: 64px; font-size: 30px;">
+                                        🏅
+                                    </div>
+                                    <small class="d-block text-muted mt-1">@badge.Name</small>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No badges earned yet. Keep exploring! 🚀</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
