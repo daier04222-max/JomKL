@@ -37,7 +37,9 @@ public static class SeedData
         var users = new User[]
         {
             new User { UserName = "YUAN WENJIE", Email = "yuan@test.com", PasswordHash = "fakehash", Role = "Learner", JoinDate = DateTime.Now.AddDays(-30) },
-            new User { UserName = "TestUser", Email = "test@test.com", PasswordHash = "fakehash", Role = "Learner", JoinDate = DateTime.Now.AddDays(-10) }
+            new User { UserName = "TestUser", Email = "test@test.com", PasswordHash = "fakehash", Role = "Learner", JoinDate = DateTime.Now.AddDays(-10) },
+            new User { UserName = "Admin", Email = "admin@kldiscovery.com", PasswordHash = "Admin12345", Role = "Admin", JoinDate = DateTime.Now },
+            new User { UserName = "Student", Email = "student@kldiscovery.com", PasswordHash = "Student12345", Role = "Learner", JoinDate = DateTime.Now }
         };
 
         context.Users.AddRange(users);

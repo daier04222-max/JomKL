@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using eExploreKL.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace eExploreKL.Pages;
 
@@ -46,12 +47,18 @@ public class DashboardModel : PageModel
     public void OnGet()
     {
         // ============================================================
-        // 从数据库查询当前登录用户的数据
-        // 目前临时指定用户名为 "YUAN WENJIE"
-        // 等登录模块完成后，会改成从 Session 获取当前登录用户
+        // ✅ 从 Session 获取当前登录用户
         // ============================================================
 
-        string currentUserName = "YUAN WENJIE";
+        // 从 Session 获取当前登录的用户名
+        string currentUserName = HttpContext.Session.GetString("UserName") ?? "";
+
+        // 如果用户未登录，跳转到登录页
+        if (string.IsNullOrEmpty(currentUserName))
+        {
+            Response.Redirect("/Login");
+            return;
+        }
 
         // ---- 1. 查询用户信息 ----
         var user = _context.Users
@@ -59,9 +66,8 @@ public class DashboardModel : PageModel
 
         if (user == null)
         {
-            // 如果用户不存在，显示默认值
-            UserName = "Unknown User";
-            JoinDate = "N/A";
+            // 如果用户不存在，跳转到登录页
+            Response.Redirect("/Login");
             return;
         }
 
@@ -76,25 +82,20 @@ public class DashboardModel : PageModel
             .Where(p => p.UserId == user.Id && p.IsUnlocked == true)
             .Count();
 
-        // ---- 4. 查询测验总数（从Quizzes表） ----
-        // 注意：因为你们还没有 Quizzes 表，这个需要等ZAYAN建好表后才能用
-        // 目前先用 Landmarks 的数量作为测验总数
-        // TODO: 等 Quizzes 表创建后，改为 _context.Quizzes.Count()
-        TotalQuizzes = _context.Landmarks.Count();  // 暂时用地标数代替
+        // ---- 4. 查询测验总数 ----
+        TotalQuizzes = _context.Landmarks.Count();
 
         // ---- 5. 查询用户完成的测验数 ----
         CompletedQuizzes = _context.UserProgresses
             .Where(p => p.UserId == user.Id && p.QuizCompleted == true)
             .Count();
 
-        // ---- 6. 查询用户总积分（所有已完成测验的分数之和） ----
+        // ---- 6. 查询用户总积分 ----
         TotalScore = _context.UserProgresses
             .Where(p => p.UserId == user.Id)
             .Sum(p => (int?)p.Score) ?? 0;
 
-        // ---- 7. 查询用户获得的徽章 ----
-        // 目前先用简单逻辑：根据完成度给徽章
-        // 等 Badges 表和徽章系统完成后，改为从 Badges 表读取
+        // ---- 7. 根据进度生成徽章 ----
         Badges = new List<BadgeInfo>();
 
         if (UnlockedLandmarks >= 1)
