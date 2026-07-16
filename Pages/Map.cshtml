@@ -1,0 +1,53 @@
+@page "/Map"
+@model eExploreKL.Pages.MapModel
+@{
+    ViewData["Title"] = "KL Map";
+}
+
+<style>
+    .map-head {
+        background: linear-gradient(135deg,#16a085,#0e6655);
+        color:#fff; border-radius:20px; padding:32px 40px;
+        box-shadow:0 8px 32px rgba(0,0,0,.25);
+    }
+    .lm-row {
+        display:flex; align-items:center; gap:16px;
+        background:#fff; border-radius:14px; padding:16px 20px;
+        box-shadow:0 4px 14px rgba(0,0,0,.07); margin-bottom:12px;
+    }
+    .lm-pin {
+        flex:0 0 48px; width:48px; height:48px; border-radius:50%;
+        display:flex; align-items:center; justify-content:center;
+        font-size:1.5rem; color:#fff; background:#16a085;
+    }
+    .lm-body { flex:1 1 auto; }
+    .lm-body h6 { margin:0; font-weight:700; }
+</style>
+
+<div class="container pt-5 mt-5" style="max-width: 900px;">
+    <div class="map-head mb-4">
+        <h1 class="fw-bold mb-1">Explore Kuala Lumpur</h1>
+        <p class="mb-0" style="opacity:.9;">
+            Ten landmarks across the city. Pick one to read about it — and test yourself with its quiz.
+        </p>
+    </div>
+
+    @foreach (var lm in Model.Landmarks)
+    {
+        <div class="lm-row">
+            <div class="lm-pin">📍</div>
+            <div class="lm-body">
+                <h6>@lm.Name <span class="text-muted small">· @lm.Category</span></h6>
+                <div class="text-muted small">@lm.Description</div>
+            </div>
+            @if (lm.QuestionCount > 0)
+            {
+                <a class="btn btn-sm btn-warning fw-bold" asp-page="/TakeQuiz" asp-route-id="@lm.LandmarkId">Quiz</a>
+            }
+            else
+            {
+                <span class="badge bg-light text-muted">No quiz yet</span>
+            }
+        </div>
+    }
+</div>
