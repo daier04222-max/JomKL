@@ -1,70 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuala Lumpur Documentary Map</title>
-    
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
-    
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-        }
-        #map {
-            width: 100%;
-            height: 100vh;
-        }
-        .custom-popup h3 {
-            margin: 0 0 5px 0;
-            color: #333;
-            font-size: 16px;
-        }
-        .custom-popup p {
-            margin: 0;
-            color: #666;
-            font-size: 14px;
-        }
-    </style>
-</head>
-<body>
+@page
+@model YourProjectName.Pages.MapModel 
+@{
+    ViewData["Title"] = "Kuala Lumpur Documentary Map";
+}
 
-    <div id="map"></div>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<style>
+    #map {
+        width: 100%;
+        height: 85vh; 
+        border-radius: 8px; 
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .custom-popup h3 {
+        margin: 0 0 5px 0;
+        color: #2c3e50;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .custom-popup strong {
+        display: block;
+        color: #7f8c8d;
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+    .custom-popup p {
+        margin: 0;
+        color: #34495e;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+</style>
 
-    <script>
-        var map = L.map('map').setView([3.1390, 101.6869], 11);
+<h2>Documentary Locations Map</h2>
+<p>Click on the blue markers to view details about each location.</p>
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+<div id="map"></div>
 
-        // 注意：如果你本地测试时前端和后端在不同的端口（比如后端在 localhost:5000，前端在 localhost:3000）
-        // 这里的请求地址需要写全，例如 fetch('http://localhost:5000/api/map/GetAttractions')
-        // 并且要在 C# 后端配置 CORS (跨域) 允许访问。
-        fetch('/api/map/GetAttractions')
-            .then(response => response.json())
-            .then(attractions => {
-                attractions.forEach(function(place) {
-                    var marker = L.marker([place.lat, place.lng]).addTo(map);
-                    
-                    var popupContent = `
-                        <div class="custom-popup">
-                            <h3>${place.name}</h3>
-                            <strong>${place.subtitle}</strong>
-                            <p>${place.description}</p>
-                        </div>
-                    `;
-                    
-                    marker.bindPopup(popupContent);
-                });
-            })
-            .catch(error => console.error('Error fetching map data:', error));
+<script>
+    var map = L.map('map').setView([3.1390, 101.6869], 11);
 
-    </script>
-</body>
-</html>
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    var attractions = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Attractions));
+
+    attractions.forEach(function(place) {
+        var marker = L.marker([place.Lat, place.Lng]).addTo(map);
+        
+        var popupContent = `
+            <div class="custom-popup">
+                <h3>${place.Name}</h3>
+                <strong>${place.Subtitle}</strong>
+                <p>${place.Description}</p>
+            </div>
+        `;
+        
+        marker.bindPopup(popupContent);
+    });
+</script>
