@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuala Lumpur Documentary Locations</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+        .custom-popup h3 {
+            margin: 0 0 5px 0;
+            color: #333;
+            font-size: 16px;
+        }
+        .custom-popup p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+    <script>
+        var map = L.map('map').setView([3.1390, 101.6869], 11);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        var attractions = [
+            {
+                name: "Bukit Jalil National Stadium",
+                subtitle: "TM Stadium Nasional",
+                lat: 3.0548, 
+                lng: 101.6915,
+                description: "Malaysia's largest stadium, hosting major sporting events and international concerts."
+            },
+            {
+                name: "Axiata Arena",
+                subtitle: "Unifi Arena",
+                lat: 3.0535, 
+                lng: 101.6945,
+                description: "A famous indoor arena for badminton opens, esports, and indoor concerts."
+            },
+            {
+                name: "KL Sports City",
+                subtitle: "National Sports Centre",
+                lat: 3.0555, 
+                lng: 101.6935,
+                description: "A comprehensive sports hub and the core of Malaysia's athletic events."
+            },
+            {
+                name: "Petronas Twin Towers",
+                subtitle: "KLCC",
+                lat: 3.1578, 
+                lng: 101.7115,
+                description: "Iconic twin skyscrapers offering breathtaking city views and stunning architecture."
+            },
+            {
+                name: "Batu Caves",
+                subtitle: "Gombak",
+                lat: 3.2374, 
+                lng: 101.6833,
+                description: "A limestone hill featuring a series of caves and famous Hindu temples."
+            },
+            {
+                name: "National Mosque of Malaysia",
+                subtitle: "Masjid Negara",
+                lat: 3.1415, 
+                lng: 101.6915,
+                description: "A prominent national mosque surrounded by beautiful, lush green gardens."
+            },
+            {
+                name: "Merdeka Square",
+                subtitle: "Dataran Merdeka",
+                lat: 3.1486, 
+                lng: 101.6945,
+                description: "The historical square where Malaya's independence was officially declared."
+            },
+            {
+                name: "Bukit Bintang",
+                subtitle: "Shopping District",
+                lat: 3.1466, 
+                lng: 101.7111,
+                description: "The premier shopping and entertainment district of Kuala Lumpur."
+            },
+            {
+                name: "Kuala Lumpur Tower",
+                subtitle: "KL Tower",
+                lat: 3.1528, 
+                lng: 101.7038,
+                description: "A communications tower offering spectacular panoramic views of the entire city."
+            },
+            {
+                name: "Petaling Street",
+                subtitle: "Chinatown",
+                lat: 3.1440, 
+                lng: 101.6976,
+                description: "A bustling street known for bargains, rich heritage, and amazing street food."
+            },
+            {
+                name: "KLCC Park",
+                subtitle: "Urban Sanctuary",
+                lat: 3.1556, 
+                lng: 101.7150,
+                description: "A beautiful urban park featuring a man-made lake and musical water fountain shows."
+            },
+            {
+                name: "Suria KLCC",
+                subtitle: "Premier Shopping",
+                lat: 3.1582, 
+                lng: 101.7124,
+                description: "A luxurious shopping mall located at the base of the Petronas Twin Towers."
+            }
+        ];
+
+        attractions.forEach(function(place) {
+            var marker = L.marker([place.lat, place.lng]).addTo(map);
+            
+            var popupContent = `
+                <div class="custom-popup">
+                    <h3>${place.name}</h3>
+                    <strong>${place.subtitle}</strong>
+                    <p>${place.description}</p>
+                </div>
+            `;
+            
+            marker.bindPopup(popupContent);
+        });
+
+    </script>
+</body>
+</html>
