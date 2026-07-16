@@ -1,12 +1,58 @@
 @page "/Login"
 
 <style>
+    /* Global glassmorphic canvas setup */
     body {
-        background: linear-gradient(rgba(10, 25, 47, 0.75), rgba(10, 25, 47, 0.85)), url('https://images.unsplash.com/photo-1596422846543-75c6fc18a52b?q=80&w=1600') no-repeat center center fixed !important;
+        background: linear-gradient(135deg, rgba(10, 23, 42, 0.88), rgba(15, 41, 62, 0.94)), 
+                    url('https://images.unsplash.com/photo-1596422846543-75c6fc18a52b?q=80&w=1600') no-repeat center center fixed !important;
         background-size: cover !important;
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        color: #ffffff;
     }
-    .container {
-        color: white !important;
+
+    /* Converts your existing light dashboard and quiz panels into sleek frosted glass panels */
+    .card, 
+    .main-content panel, 
+    div[class*="card"], 
+    .bg-white,
+    #registerForm,
+    form {
+        background: rgba(255, 255, 255, 0.06) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        color: #ffffff !important;
+        border-radius: 16px !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25) !important;
+    }
+
+    /* Standardizes textual descriptions, subtle labels, and muted text across layouts */
+    .text-muted, 
+    .text-black-50, 
+    .text-white-50, 
+    p.small, 
+    label {
+        color: rgba(255, 255, 255, 0.65) !important;
+    }
+
+    /* Restores text visibility inside headers and body titles */
+    h1, h2, h3, h4, h5, h6, .card-title {
+        color: #ffffff !important;
+    }
+
+    /* Upgrades standard plain form entry inputs to match the registration scheme */
+    .form-control {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        color: #ffffff !important;
+        border-radius: 10px !important;
+    }
+
+    .form-control:focus {
+        background: rgba(255, 255, 255, 0.08) !important;
+        border-color: #1abc9c !important;
+        box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.25) !important;
+        color: #ffffff !important;
     }
 </style>
 
