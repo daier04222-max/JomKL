@@ -7,7 +7,4 @@ public class Landmark
     public string? Description { get; set; }
     public string? Category { get; set; }
     public string? ImageUrl { get; set; }
-    public double Latitude { get; set; }
-    public double Longitude { get; set; }
-    public string? AudioUrl { get; set; }
 }
