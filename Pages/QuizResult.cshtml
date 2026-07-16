@@ -1,0 +1,74 @@
+@page "/Quiz/Result"
+@model eExploreKL.Pages.QuizResultModel
+@{
+    ViewData["Title"] = "Quiz Result";
+    var r = Model.Result;
+    var percent = r.TotalQuestions == 0 ? 0
+        : (int)System.Math.Round(100.0 * r.CorrectAnswers / r.TotalQuestions);
+}
+
+<style>
+    .result-card { border:none; border-radius:20px; box-shadow:0 8px 32px rgba(0,0,0,.12); }
+    .result-score { font-size:3.4rem; font-weight:800; line-height:1; color:#212529; }
+    .result-score small { font-size:1.1rem; color:#6c757d; font-weight:600; }
+    .result-meter { height:12px; border-radius:999px; background:#e9ecef; overflow:hidden; margin:.75rem 0 1rem; }
+    .result-meter > span { display:block; height:100%; background:linear-gradient(90deg,#16a085,#FF9800); }
+    .new-best { color:#198754; font-weight:800; }
+    .review-item { border-radius:12px; padding:14px 18px; margin-bottom:10px; }
+    .review-item.correct { background:#d1e7dd; }
+    .review-item.wrong   { background:#f8d7da; }
+    .review-q { font-weight:700; margin-bottom:4px; }
+</style>
+
+<div class="container pt-5 mt-5" style="max-width: 900px;">
+    <div class="card result-card mb-4">
+        <div class="card-body p-4 text-center">
+            <p class="text-uppercase fw-bold mb-1" style="color:#FF9800; letter-spacing:2px;">Quiz complete</p>
+            <h1 class="fw-bold mb-3">@r.LandmarkName</h1>
+
+            <p class="result-score mb-0">@r.PointsEarned <small>/ @r.MaxPoints pts</small></p>
+            <div class="result-meter" role="img" aria-label="Score @percent percent">
+                <span style="width:@(percent)%"></span>
+            </div>
+            <p class="mb-1">
+                You answered <strong>@r.CorrectAnswers of @r.TotalQuestions</strong> questions correctly (@percent%).
+            </p>
+            @if (r.IsNewBestScore)
+            {
+                <p class="new-best mb-0">🎉 New best score for this landmark!</p>
+            }
+
+            <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
+                <a class="btn btn-warning fw-bold" asp-page="/TakeQuiz" asp-route-id="@r.LandmarkId">Try again</a>
+                <a class="btn btn-outline-dark" asp-page="/Quiz">More quizzes</a>
+                <a class="btn btn-outline-dark" asp-page="/Dashboard">My dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card result-card mb-5">
+        <div class="card-body p-4">
+            <h4 class="fw-bold mb-3">Answer review</h4>
+            @foreach (var item in r.Review)
+            {
+                <div class="review-item @(item.IsCorrect ? "correct" : "wrong")">
+                    <p class="review-q">@item.QuestionText</p>
+                    <p class="mb-0 small">
+                        @if (item.IsCorrect)
+                        {
+                            <span>✔ Correct — @item.CorrectAnswerText</span>
+                        }
+                        else if (item.SelectedOption == null)
+                        {
+                            <span>✘ Not answered. Correct answer: @item.CorrectAnswerText</span>
+                        }
+                        else
+                        {
+                            <span>✘ Your answer was option @item.SelectedOption. Correct answer: @item.CorrectAnswerText</span>
+                        }
+                    </p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

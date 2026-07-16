@@ -1,0 +1,95 @@
+@page "/Quiz/Take/{id:int}"
+@model eExploreKL.Pages.TakeQuizModel
+@{
+    ViewData["Title"] = Model.Landmark.Name + " Quiz";
+}
+
+<style>
+    .quiz-head {
+        background: linear-gradient(135deg,#212529,#343a40);
+        color:#fff; border-radius:20px; padding:32px 40px;
+        box-shadow:0 8px 32px rgba(0,0,0,.25);
+    }
+    .quiz-head .eyebrow { color:#FF9800; text-transform:uppercase; letter-spacing:2px; font-weight:700; font-size:.8rem; }
+    .question-card { border:none; border-radius:16px; box-shadow:0 4px 16px rgba(0,0,0,.08); }
+    .question-num {
+        display:inline-flex; align-items:center; justify-content:center;
+        width:34px; height:34px; border-radius:50%;
+        background:#FF9800; color:#fff; font-weight:800; margin-right:10px;
+    }
+    .difficulty { font-size:.72rem; font-weight:700; padding:2px 10px; border-radius:999px; }
+    .d-Easy   { background:#d1e7dd; color:#0f5132; }
+    .d-Medium { background:#fff3cd; color:#664d03; }
+    .d-Hard   { background:#f8d7da; color:#842029; }
+    .option {
+        display:block; border:2px solid #e9ecef; border-radius:12px;
+        padding:12px 16px; margin-bottom:10px; cursor:pointer; transition:all .15s ease;
+    }
+    .option:hover { border-color:#FF9800; background:#fff8ef; }
+    .option input { margin-right:10px; }
+    .option:has(input:checked) { border-color:#FF9800; background:#fff3e0; font-weight:600; }
+</style>
+
+<div class="container pt-5 mt-5" style="max-width: 900px;">
+    <div class="quiz-head mb-4">
+        <p class="eyebrow mb-1">@Model.Landmark.Category quiz</p>
+        <h1 class="fw-bold mb-2">@Model.Landmark.Name</h1>
+        <p class="mb-0" style="opacity:.85;">@Model.Landmark.Description</p>
+    </div>
+
+    <form method="post" id="quizForm" novalidate>
+        @for (var i = 0; i < Model.Questions.Count; i++)
+        {
+            var q = Model.Questions[i];
+            <div class="card question-card mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h5 class="mb-0"><span class="question-num">@(i + 1)</span>@q.QuestionText</h5>
+                        <span class="difficulty d-@q.Difficulty">@q.Difficulty · @q.Points pts</span>
+                    </div>
+
+                    <input type="hidden" name="Answers[@i].QuestionId" value="@q.Id" />
+
+                    <label class="option">
+                        <input type="radio" name="Answers[@i].SelectedOption" value="A" /> @q.OptionA
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="Answers[@i].SelectedOption" value="B" /> @q.OptionB
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="Answers[@i].SelectedOption" value="C" /> @q.OptionC
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="Answers[@i].SelectedOption" value="D" /> @q.OptionD
+                    </label>
+                </div>
+            </div>
+        }
+
+        <p id="quizError" class="text-danger fw-bold" style="display:none;">
+            Please answer every question before submitting.
+        </p>
+
+        <div class="d-flex gap-2 mb-5">
+            <button type="submit" class="btn btn-warning btn-lg fw-bold px-4">Submit answers</button>
+            <a href="/Quiz" class="btn btn-outline-secondary btn-lg">Back to quizzes</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('quizForm').addEventListener('submit', function (e) {
+            var total = @Model.Questions.Count;
+            var answered = new Set();
+            document.querySelectorAll('input[type=radio]:checked').forEach(function (el) {
+                answered.add(el.name);
+            });
+            if (answered.size < total) {
+                e.preventDefault();
+                document.getElementById('quizError').style.display = 'block';
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            }
+        });
+    </script>
+}

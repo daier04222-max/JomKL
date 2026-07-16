@@ -10,6 +10,10 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Added for the quiz feature.
+builder.Services.AddScoped<eExploreKL.Services.QuizService>();
+builder.Services.AddScoped<eExploreKL.Services.QuizProgressService>();
+
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
