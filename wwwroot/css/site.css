@@ -42,3 +42,35 @@ body {
     padding: 10px 20px;
     border-radius: 5px;
 }
+
+/* Apply the photographic KL skyline background to specific pages */
+body:has(a[href="/Map"].active),
+body:has(a[href="/Quiz"].active),
+body:has(a[href="/Login"].active),
+body:has(form[action*="Login"]),
+body:has(form[action*="Register"]) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/images/kl-skyline.jpg') !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    color: #ffffff;
+}
+
+/* Ensure data lists, rows, and cards remain highly readable over the dark image background */
+body:has(a[href="/Map"].active) .lm-row,
+body:has(a[href="/Quiz"].active) .card,
+body:has(a[href="/Login"].active) .card,
+body:has(form[action*="Login"]) .card,
+body:has(form[action*="Register"]) .card {
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(8px);
+    color: #212529 !important;
+}
+
+/* Clear out default footer backgrounds */
+footer {
+    background: transparent !important;
+    border-top: none !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+}
