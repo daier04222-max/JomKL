@@ -83,8 +83,7 @@ public class DashboardModel : PageModel
             .Count();
 
         // ---- 4. 查询测验总数 ----
-        TotalQuizzes = _context.Landmarks.Count();
-
+        TotalQuizzes = _context.QuizQuestions.Count(); 
         // ---- 5. 查询用户完成的测验数 ----
         CompletedQuizzes = _context.UserProgresses
             .Where(p => p.UserId == user.Id && p.QuizCompleted == true)

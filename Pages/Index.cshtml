@@ -95,6 +95,7 @@
         transition: all 0.3s ease;
         text-decoration: none;
         display: inline-block;
+        animation: premiumPulse 2s infinite;
     }
     
     .btn-jomkl-premium:hover {
@@ -102,9 +103,12 @@
         color: black;
         border: 1px solid black;
         transform: scale(1.05);
+        animation: none; 
+        
+        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4);
     }
 
-    /* --- 3D Box --- */
+    /* 3D Box */
     #tilt-box {
         perspective: 1000px; 
         transform-style: preserve-3d;
@@ -114,7 +118,7 @@
         transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
-    /* --- Carousel Indicator --- */
+    /* Carousel Indicator */
     .carousel-indicators {
         bottom: -50px;
     }
@@ -137,7 +141,7 @@
         opacity: 1 !important;
     }
 
-    /* --- Click Effect --- */
+    /* Click Effect */
     .firework-particle {
         position: fixed;
         top: 0; 
@@ -148,6 +152,64 @@
         border-radius: 50%;   
         pointer-events: none;
         z-index: 9999;  
+    }
+
+    /* Core Function Introduction Grid Style */
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+        text-align: left;
+        margin-top: 40px;
+    }
+    
+    .feature-item {
+        padding: 30px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+    
+    .feature-item:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.08);
+    }
+    
+    .feature-icon {
+        margin-bottom: 20px;
+    }
+    
+    .feature-item h3 {
+        color: white;
+        font-size: 1.4rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+    
+    .feature-item p {
+        color: #dcdde1;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    @@media (max-width: 768px) {
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* The button's orange radar breathing halo animation */
+    @@keyframes premiumPulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(255, 152, 0, 0.7);
+        }
+        70% {
+            box-shadow: 0 0 0 15px rgba(255, 152, 0, 0); 
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(255, 152, 0, 0); 
+        }
     }
 </style>
 
@@ -248,6 +310,50 @@
     </div>
 </section>
 
+<section id="section-features" class="scroll-section">
+    <div class="content-box content-box-animated">
+        
+        <h2 class="about-title" style="color: white; font-weight: bold; margin-bottom: 20px;">
+            What We Offer
+        </h2>
+        
+        <div class="features-grid about-text">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FF9800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+                </div>
+                <h3>Interactive KL Map</h3>
+                <p>Navigate through the vibrant streets of Kuala Lumpur with our interactive mapping tool to discover hidden gems and historical landmarks.</p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FF9800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                </div>
+                <h3>Interactive Quizzes</h3>
+                <p>Test your knowledge about KL's rich culture and history. Earn points, unlock achievements, and learn as you play.</p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FF9800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                </div>
+                <h3>Learner Dashboard</h3>
+                <p>Track your learning progress, view your quiz scores, and manage your personalized exploration journey in real-time.</p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FF9800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                </div>
+                <h3>Cultural Insights</h3>
+                <p>Immerse yourself in the diverse heritage of Malaysia with curated content covering Malay, Chinese, and Indian traditions.</p>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
 <section id="section4" class="scroll-section">
     <div class="content-box" style="padding: 80px 50px;">
         <h2 style="color: white; font-weight: bold; margin-bottom: 20px;">Ready for the Adventure?</h2>
@@ -293,13 +399,9 @@
                 threshold: 0.2
             });
 
-            const animatedBox = document.querySelector('.content-box-animated');
-            const animatedTitle = document.querySelector('.about-title');
-            const animatedText = document.querySelector('.about-text');
-
-            if(animatedBox) observer.observe(animatedBox);
-            if(animatedTitle) observer.observe(animatedTitle);
-            if(animatedText) observer.observe(animatedText);
+            document.querySelectorAll('.content-box-animated, .about-title, .about-text').forEach(el => {
+                observer.observe(el);
+            });
         });
 
         // section 3 3D effect
